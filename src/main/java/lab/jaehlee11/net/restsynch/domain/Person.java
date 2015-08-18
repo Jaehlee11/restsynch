@@ -1,9 +1,13 @@
-package lab.jaehlee11.net.restsynch.domain.entity;
+package lab.jaehlee11.net.restsynch.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Person {
@@ -18,13 +22,15 @@ public class Person {
 	@Column(nullable = false)
 	private String email;
 	
+	@OneToMany(targetEntity = Contact.class, cascade = CascadeType.ALL, mappedBy = "person")
+	private List<Contact> contacts;
+	
 	protected Person() {
 		// no-args constructor requested by JSP spec
 		// this one is protected since it shouldn't be used directly
 	}
 
-	public Person(Long id, String name, String email) {
-		this.id = id;
+	public Person(String name, String email) {
 		this.name = name;
 		this.email = email;
 	}
@@ -52,6 +58,12 @@ public class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
 }

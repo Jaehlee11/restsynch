@@ -1,15 +1,19 @@
 package lab.jaehlee11.net.restsynch.service;
 
-import org.springframework.stereotype.Service;
+import lab.jaehlee11.net.restsynch.domain.Contact;
+import lab.jaehlee11.net.restsynch.domain.Person;
 
-@Service
-public class PersonService {
+public interface PersonService {
+
+	Long count();
 	
-//	private final PersonRepository personRepository;
-//	
-//	// Using constructor injection : indication that it cannot be subsequently changed.
-//	@Autowired
-//	public PersonService(PersonRepository personRepository) {
-//		this.personRepository = personRepository;
-//	}
+	Person insertPersion(Person person);
+	
+	Iterable<Person> findAllPerson();
+
+	Person findPerson(Long id);
+	
+	Person deletePerson(Long id);
+	
+	Iterable<Contact> findPersonContract(Long id);
 }

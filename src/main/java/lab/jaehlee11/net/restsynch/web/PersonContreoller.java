@@ -1,35 +1,42 @@
 package lab.jaehlee11.net.restsynch.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import lab.jaehlee11.net.restsynch.domain.entity.Person;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import lab.jaehlee11.net.restsynch.domain.Contact;
+import lab.jaehlee11.net.restsynch.domain.Person;
+import lab.jaehlee11.net.restsynch.service.PersonService;
+
 @RestController
 @RequestMapping(value="/person")
 public class PersonContreoller {
+	
+	@Autowired
+	private PersonService personService;
 
     @RequestMapping(value="/")
-    public String getUser() {
-    	return "Welcome to RestSynch Service...";
-    }
-    //public Person getUser(@RequestParam(value="id", defaultValue=0L) Long person) {
-    @RequestMapping(value="/{person}", method=RequestMethod.GET)
-    public Person getUser(@PathVariable Long person) {
-    	return new Person(person, "Jae Hun Lee", "jaehlee11@jaehlee11.com.au");
+    public Iterable<Person> getPersons() {
+    	return personService.findAllPerson();
     }
 
-    @RequestMapping(value="/{person}/customers", method=RequestMethod.GET)
-    List<Person> getUserCustomers(@PathVariable Long person) {
-        return null;
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    public Person getPerson(@PathVariable Long id) {
+    	return personService.findPerson(id);
     }
 
-    @RequestMapping(value="/{person}", method=RequestMethod.DELETE)
-    public Person deleteUser(@PathVariable Long person) {
-    	return null;
+    @RequestMapping(value="/{id}/contracts", method=RequestMethod.GET)
+    Iterable<Contact> getPersonContracts(@PathVariable Long id) {
+        return personService.findPersonContract(id);
+    }
+
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    public Person deletePerson(@PathVariable Long id) {
+    	return personService.deletePerson(id);
     }
 }
