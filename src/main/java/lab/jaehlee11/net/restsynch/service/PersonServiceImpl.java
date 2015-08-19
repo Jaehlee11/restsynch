@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 	
 	@Override
-	public Iterable<Contact> findPersonContract(Long id) {
+	public Iterable<Contact> findPersonContact(Long id) {
 		return contactRepository.findByPersonId(id);
 	}
 }

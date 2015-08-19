@@ -15,5 +15,5 @@ public interface PersonService {
 	
 	Person deletePerson(Long id);
 	
-	Iterable<Contact> findPersonContract(Long id);
+	Iterable<Contact> findPersonContact(Long id);
 }
